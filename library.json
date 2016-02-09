@@ -1,0 +1,28 @@
+{
+  "title": "Essay/Reflection Question",
+  "description": "A prompt with a text entry field",
+  "majorVersion": 1,
+  "minorVersion": 0,
+  "patchVersion": 17,
+  "runnable": 1,
+  "author": "brad@tunapanda.org",
+  "license": "cc-by-sa",
+  "machineName": "H5P.EssayQuestion",
+  "coreApi": {
+    "majorVersion": 1,
+    "minorVersion": 0
+  },
+  "preloadedJs": [
+    { "path": "essayquestion.js" }
+  ],
+  "preloadedCss": [
+    {"path": "essayquestion.css"}
+  ],
+  "preloadedDependencies": [  
+    {
+      "machineName": "H5P.Question",
+      "majorVersion": 1,
+      "minorVersion": 1
+    }
+  ]
+}

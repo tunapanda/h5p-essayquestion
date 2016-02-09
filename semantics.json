@@ -1,0 +1,10 @@
+[ 
+  { 
+    "label": "Question Text", 
+    "name": "questiontext", 
+    "type": "text",
+    "widget": "html",
+    "default": "", 
+    "description": "The question or writing prompt displayed to the end user."
+  }
+]

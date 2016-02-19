@@ -3,7 +3,7 @@
   "description": "A prompt with a text entry field",
   "majorVersion": 1,
   "minorVersion": 0,
-  "patchVersion": 17,
+  "patchVersion": 28,
   "runnable": 1,
   "author": "brad@tunapanda.org",
   "license": "cc-by-sa",

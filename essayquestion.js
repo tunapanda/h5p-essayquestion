@@ -22,56 +22,40 @@ H5P.EssayQuestion = (function ($) {
     this.response = undefined;
   };
   
+  // Inherit from H5P.question
   C.prototype = Object.create(H5P.Question.prototype);
   C.prototype.constructor = C;
+  
+  // Define intro, content, etc.
   C.prototype.registerDomElements = function () {
   	var self = this;
   	self.setIntroduction('<div class="essayquestion-text">' + this.options.questiontext + '</div>');
-  	self.setContent('<textarea class="essayquestion-input"></textarea>');
-  	console.log("SETUP");
+  	self.setContent('<div class="essayquestion-input-ro"></div><textarea class="essayquestion-input"></textarea>');
     self.registerButtons();
   }
   
+  // Define submit button and process
   C.prototype.registerButtons = function () {
-    // Add show score button
-    console.log("BUTTONS");
-    this.addSubmitButton();
-  };
-  
-  C.prototype.addSubmitButton = function () {
     var that = this;
-
-    this.addButton('submit-answer', this.options.submitButton, function () {
-    	console.log("submitted");
-    	that.response = $(".essayquestion-input").val();
-    	console.log("JQ = " + $(".essayquestion-input").val());
-    	console.log("SELF = " + that.response);
-    	that.triggerXAPI("http://adlnet.gov/expapi/verbs/answered",{
-    		questiontext: that.options.questiontext,
-    		answer: that.response
-    	});
-    });
+    this.addButton(
+    	'essayquestion-submit',
+    	this.options.submitButton, 
+    	function () {;
+			that.response = $(".essayquestion-input").val();
+			console.log("Submitting2 '" + that.response + "'");
+			$(".essayquestion-input-ro").html(that.response);
+			$(".essayquestion-input-ro").fadeIn();
+			$(".essayquestion-input").fadeOut();
+			that.triggerXAPI("answered", {
+					questiontext: that.options.questiontext,
+					answer: that.response
+			});	
+	    },
+    	true
+	);
   };
- 
   
   
-  /**
-   * Attach function called by H5P framework to insert H5P content into
-   * page
-   *
-   * @param {jQuery} $container
-   */
-  C.prototype.attach = function ($container) {
-    // Set class on container to identify it as a greeting card
-    // container.  Allows for styling later.
-    $container.addClass("h5p-essayquestion");
-    // Add image if provided.
-    /*if (this.options.image && this.options.image.path) {
-      $container.append('<img class="greeting-image" src="' + H5P.getPath(this.options.image.path, this.id) + '">');
-    }*/
-    // Add question text.
-    $container.append('<div class="essayquestion-text">ATTACH' + this.options.questiontext + '</div>');
-  };
  
   return C;
 })(H5P.jQuery);

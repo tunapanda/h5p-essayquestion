@@ -9,3 +9,11 @@
 .essayquestion-input {
 	width: 100%;	
 }
+
+.essayquestion-input-ro {
+	width: 100%;	
+	background-color: lightgray;
+	display: none;
+	border-radius: 10px;
+	padding: 10px;	
+}

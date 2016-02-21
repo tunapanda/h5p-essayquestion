@@ -11,9 +11,8 @@
 }
 
 .essayquestion-input-ro {
-	width: 100%;	
-	background-color: lightgray;
-	display: none;
+	width: 80%;	
+	border: thin solid lightgray;
 	border-radius: 10px;
 	padding: 10px;	
 }

@@ -30,32 +30,40 @@ H5P.EssayQuestion = (function ($) {
   C.prototype.registerDomElements = function () {
   	var self = this;
   	self.setIntroduction('<div class="essayquestion-text">' + this.options.questiontext + '</div>');
-  	self.setContent('<div class="essayquestion-input-ro"></div><textarea class="essayquestion-input"></textarea>');
+  	self.setContent('<textarea class="essayquestion-input"></textarea>');
     self.registerButtons();
+  }
+  
+  // Make input read-only, submit via xAPI
+  C.prototype.response_submitted = function() {
+	// Replace input with read-only text
+	var input = $(".essayquestion-input");
+	this.response = input.val();
+	var ro = $("<div>");
+	ro.addClass(".essayquestion-input-ro");
+	ro.html(this.response);
+	input.replaceWith(ro);
+	
+	// submit xAPI 'answered' statement
+	var xAPIEvent = this.createXAPIEventTemplate('answered');
+	if (xAPIEvent.data.statement.result === undefined) {
+		xAPIEvent.data.statement.result = {};
+	}
+	xAPIEvent.data.statement.result.response = this.response;
+	xAPIEvent.data.statement.result.completion = true;
+	this.trigger(xAPIEvent);
   }
   
   // Define submit button and process
   C.prototype.registerButtons = function () {
-    var that = this;
+    var self = this;
     this.addButton(
     	'essayquestion-submit',
     	this.options.submitButton, 
-    	function () {;
-			that.response = $(".essayquestion-input").val();
-			console.log("Submitting2 '" + that.response + "'");
-			$(".essayquestion-input-ro").html(that.response);
-			$(".essayquestion-input-ro").fadeIn();
-			$(".essayquestion-input").fadeOut();
-			that.triggerXAPI("answered", {
-					questiontext: that.options.questiontext,
-					answer: that.response
-			});	
-	    },
+  		function(){self.response_submitted()},
     	true
 	);
   };
-  
-  
  
   return C;
 })(H5P.jQuery);

@@ -33,6 +33,12 @@ H5P.EssayQuestion = (function ($) {
       	})
       )
       
+    The tricky part is going to be including at least
+    the verb of the submitted xAPI statement in the
+    event data. This is important because multiple
+    xAPI calls can be made for a single h5p (e.g.
+    "attempted" and "answered"). 
+      
     Once this functionality is in place, the stuff that makes the input read-only, which is currently in response_submitted() should be moved to this listener.
     */
     document.addEventListener('xAPISuccess',function(evt){

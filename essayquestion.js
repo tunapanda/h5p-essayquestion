@@ -54,8 +54,8 @@ H5P.EssayQuestion = (function ($) {
   // Define intro, content, etc.
   C.prototype.registerDomElements = function () {
   	var self = this;
-  	self.setIntroduction('<div class="essayquestion-text">' + this.options.questiontext + '</div>');
-  	self.setContent('<textarea class="essayquestion-input"></textarea>');
+  	self.setIntroduction('<div class="essayquestion-text">Hi: ' + this.options.question + '</div>');
+  	self.setContent('&nbsp;<textarea class="essayquestion-input"></textarea>&nbsp;');
     self.registerButtons();
   }
   
@@ -93,6 +93,11 @@ H5P.EssayQuestion = (function ($) {
     	true
 	);
   };
+  
+  C.prototype.getAnswerGiven = function() {
+  	var input = $(".essayquestion-input");
+	return input.val() !== "";
+  }
  
   return C;
 })(H5P.jQuery);
